@@ -1,4 +1,8 @@
 <style lang="sass">
+.search_box_container
+  padding: 10px
+  width: 100%
+
 .search_box
   display: flex
   width: 100%
@@ -85,12 +89,12 @@
 
 </style>
 <template lang="pug">
-InfiniteScroll(
+InfiniteScroll.container(
   @loadMore.user="loadMore"
   :scrollDisabled.sync="scrollDisabled"
   :isNothing.sync="isNothing"
 )
-  Container(topBottom="10")
+  view.search_box_container
     navigator.search_box(open-type="navigate" url="/pages/index/search")
       text.i.search_icon &#xe63e;
       .search_ipt 搜索商品
@@ -138,7 +142,6 @@ InfiniteScroll(
 
 <script>
 import wepy from 'wepy'
-import Container from '@/Container'
 import InfiniteScroll from '@/InfiniteScroll'
 
 export default class Index extends wepy.page {
@@ -152,7 +155,6 @@ export default class Index extends wepy.page {
   }
 
   components = {
-    Container,
     InfiniteScroll,
   }
 
