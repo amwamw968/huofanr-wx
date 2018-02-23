@@ -71,7 +71,7 @@
 </style>
 <template lang="pug">
 view.container.pb40
-  view.goods_group
+  view.goods_group(wx:if="{{goodsList.length}}")
     view.goods_card(wx:for="{{goodsList}}" wx:key)
       text.checkbox.i(class="{{item.isSelect ? 'i-checked' : 'i-circle'}}" @tap.stop="selectHandle({{item.goods_cart_id}})")
       navigator(open-type="navigate" url="/pages/goods/index?goods_id={{item.goods_id}}")
@@ -83,6 +83,7 @@ view.container.pb40
           wxc-counter.fr(number="{{item.goods_count}}" max="{{99}}" min="1" bind:changenumber="onChangeNumber({{item.goods_cart_id}})")
       wxc-icon.icon_delete(type="delete" size="24" color="#999" @tap.stop="deleteGoods({{item.goods_cart_id}})")
 
+  wxc-abnor(wx:else type="CART" bindabnortap="linkToHome")
   view.footer
     .checkbox_box.flex1(@tap="selectAll")
       text.checkbox.i(class="{{isSelectAll ? 'i-checked' : 'i-circle'}}")
@@ -109,6 +110,7 @@ export default class Cart extends wepy.page {
       'wxc-price': '../../packages/@minui/wxc-price/dist/index',
       'wxc-elip': '../../packages/@minui/wxc-elip/dist/index',
       'wxc-icon': '../../packages/@minui/wxc-icon/dist/index',
+      'wxc-abnor': '../../packages/@minui/wxc-abnor/dist/index',
     },
   }
 
@@ -199,6 +201,12 @@ export default class Cart extends wepy.page {
       const goods_cart_ids = this.goodsList.filter(item => item.isSelect).map(item => item.goods_cart_id).join(',')
       this.$navigate('/pages/cart/pay', {
         goods_cart_ids,
+      })
+    },
+
+    linkToHome() {
+      wepy.switchTab({
+        url: '/pages/index/index'
       })
     },
   }
