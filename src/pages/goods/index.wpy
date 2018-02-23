@@ -176,14 +176,11 @@ view.container
     text 领取优惠券
   Cell.cell_box.icon_none
     wxc-label.mr20(type-color='#138b6b') 税费
-    text 预估 ￥{{goods.tax / 100}}，实际税费请以提交订单时为准
+    text(wx:if="{{goods.tax}}") 预估跨境商品税费￥{{goods.tax / 100}}，实际请以提交订单时为准
+    text(wx:else) 本商品为跨境产品，跨境综合税由活范儿代缴
   CellService.cell_box(@click.user='openService')
     wxc-label.mr20(type-color='#fdbe2d') 服务
-    text 从美国发货，预计 1~20个工作日抵达
-  Cell.cell_box.icon_none
-    wxc-label.mr20(type-color='#016b8a') 说明
-    wxc-icon.wxc_icon(type="yes" size="24" color="#999")
-    text 支持七天无理由退款
+    text {{goods.service || '本商品为保税仓产品，100%正品保证，请放心购买'}}
   CellCategory.cell_box(wx:if="{{isStockout}}" @click.user='toggleCategoryDialog')
     text {{currentSkuDesc}}
     text(slot="rightText") 数量规格选择
