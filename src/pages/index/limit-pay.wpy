@@ -160,7 +160,9 @@ export default class Pay extends wepy.page {
 
   async fetchData() {
     // 状态：sellout：结束，selling：销售中，waiting：等待销售
-    this.tabData = await wepy.request('goods/timer_goods_list')
+    const res = await wepy.request('goods/timer_goods_list')
+    this.tabData = res
+    this.currentTab = res.findIndex(item => item.status === 'selling') || 0
     this.$apply()
   }
 
