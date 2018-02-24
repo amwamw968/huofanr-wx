@@ -38,7 +38,7 @@ export default class Token {
   }
 
   createSessionId() {
-    const session_id = Math.random().toString(16).substring(2) + (+new Date()) + Math.random().toString(16).substring(2)
+    const session_id = (Math.random().toString(16).substring(2, 34) + new Date().getTime() + Math.random().toString(16).substring(2, 8)).padStart(32, 'abcdefg')
     wepy.setStorageSync('session_id', session_id)
   }
 }
